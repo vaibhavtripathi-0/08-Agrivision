@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useTranslation } from '@/lib/i18n/context';
+import { useAuth } from '@/lib/auth/context';
 import {
   Sparkles,
   CloudRain,
@@ -21,6 +22,10 @@ import {
 
 export default function FarmerDashboardPage() {
   const { t } = useTranslation();
+  const { user } = useAuth();
+
+  const displayName = user?.fullName || 'Farmer';
+  const displayLocation = user?.district ? `${user.district} District, ${user.state || 'UP'}` : 'Mathura District, UP';
 
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
@@ -30,14 +35,14 @@ export default function FarmerDashboardPage() {
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full bg-forest-100 text-forest-800 font-bold text-xs">
-              Mathura District, UP
+              {displayLocation}
             </span>
             <span className="px-2.5 py-0.5 rounded-full bg-harvest-100 text-harvest-800 font-bold text-xs">
               LIVE RADAR ACTIVE
             </span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold font-heading text-forest-950">
-            {t('dashboard.greeting')}
+            {t('dashboard.greeting', { name: displayName })}
           </h1>
           <p className="text-xs sm:text-sm text-forest-800">
             {t('dashboard.subGreeting')}

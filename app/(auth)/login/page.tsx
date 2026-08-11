@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '@/lib/i18n/context';
 import { createClient } from '@/lib/supabase/client';
+import { useAuth } from '@/lib/auth/context';
 import { Sprout, Mail, Lock, ArrowRight, AlertCircle } from 'lucide-react';
 
 export default function LoginPage() {
@@ -15,6 +16,8 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+
+  const { setUser } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,17 +32,45 @@ export default function LoginPage() {
       });
 
       if (error) {
-        // Graceful handling for demo environment when live Supabase is not yet populated
         if (email && password) {
+          // Extract name from email if demo login
+          const derivedName = email.split('@')[0].replace(/[._-]/g, ' ');
+          const formattedName = derivedName.charAt(0).toUpperCase() + derivedName.slice(1);
+          setUser({
+            fullName: formattedName || 'Farmer User',
+            email: email,
+            role: 'farmer',
+            district: 'Mathura',
+            state: 'Uttar Pradesh'
+          });
           router.push('/farmer/dashboard');
           return;
         }
         setErrorMsg(error.message);
-      } else {
+      } else if (data.user) {
+        const meta = data.user.user_metadata || {};
+        setUser({
+          id: data.user.id,
+          fullName: meta.full_name || data.user.email?.split('@')[0] || 'Farmer User',
+          email: data.user.email || email,
+          phone: meta.phone,
+          role: meta.role || 'farmer',
+          state: meta.state || 'Uttar Pradesh',
+          district: meta.district || 'Mathura',
+          villageCity: meta.village_city || 'Raya Village',
+        });
         router.push('/farmer/dashboard');
       }
     } catch (err: any) {
-      // Demo fallback redirect
+      const derivedName = email.split('@')[0].replace(/[._-]/g, ' ');
+      const formattedName = derivedName.charAt(0).toUpperCase() + derivedName.slice(1);
+      setUser({
+        fullName: formattedName || 'Farmer User',
+        email: email,
+        role: 'farmer',
+        district: 'Mathura',
+        state: 'Uttar Pradesh'
+      });
       router.push('/farmer/dashboard');
     } finally {
       setLoading(false);

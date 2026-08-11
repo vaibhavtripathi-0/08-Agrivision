@@ -3,10 +3,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useTranslation } from '@/lib/i18n/context';
+import { useAuth } from '@/lib/auth/context';
 import { Sprout, Globe, Menu, X, User, ChevronRight, Sparkles } from 'lucide-react';
 
 export function Navbar() {
   const { language, setLanguage, t } = useTranslation();
+  const { user, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleLanguage = () => {
@@ -71,23 +73,43 @@ export function Navbar() {
               <span className="font-bold">{t('common.switchLang')}</span>
             </button>
 
-            {/* Auth Login Link */}
-            <Link
-              href="/login"
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-forest-800 font-medium text-sm hover:text-forest-950 transition-colors"
-            >
-              <User className="w-4 h-4" />
-              {t('common.login')}
-            </Link>
+            {user ? (
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/farmer/dashboard"
+                  className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-forest-100 text-forest-900 font-semibold text-xs border border-forest-300 hover:bg-forest-200 transition-colors"
+                >
+                  <User className="w-4 h-4 text-forest-700" />
+                  <span>{user.fullName}</span>
+                </Link>
+                <button
+                  onClick={() => logout()}
+                  className="px-3 py-2 text-xs font-semibold text-earth-700 hover:text-red-700 transition-colors"
+                >
+                  {t('common.logout')}
+                </button>
+              </div>
+            ) : (
+              <>
+                {/* Auth Login Link */}
+                <Link
+                  href="/login"
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl text-forest-800 font-medium text-sm hover:text-forest-950 transition-colors"
+                >
+                  <User className="w-4 h-4" />
+                  {t('common.login')}
+                </Link>
 
-            {/* Main CTA */}
-            <Link
-              href="/register"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-forest-800 text-harvest-100 font-semibold text-sm hover:bg-forest-900 shadow-soft hover:shadow-elevated transition-all"
-            >
-              <span>{t('common.register')}</span>
-              <ChevronRight className="w-4 h-4" />
-            </Link>
+                {/* Main CTA */}
+                <Link
+                  href="/register"
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-forest-800 text-harvest-100 font-semibold text-sm hover:bg-forest-900 shadow-soft hover:shadow-elevated transition-all"
+                >
+                  <span>{t('common.register')}</span>
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Toggle */}

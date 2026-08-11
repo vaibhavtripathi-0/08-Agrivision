@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/lib/i18n/context';
+import { useAuth } from '@/lib/auth/context';
 import {
   Sprout,
   LayoutDashboard,
@@ -25,6 +26,7 @@ export default function FarmerLayout({
 }) {
   const pathname = usePathname();
   const { language, setLanguage, t } = useTranslation();
+  const { user, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleLanguage = () => {
@@ -88,6 +90,17 @@ export default function FarmerLayout({
 
         {/* Sidebar Footer Controls */}
         <div className="space-y-4 pt-6 border-t border-forest-800">
+          {user && (
+            <div className="px-4 py-3 rounded-2xl bg-forest-800/60 border border-forest-700/50 space-y-1">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] uppercase font-bold text-harvest-400 tracking-wider">Logged In As</span>
+                <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+              </div>
+              <p className="text-sm font-extrabold text-earth-100 truncate">{user.fullName}</p>
+              <p className="text-[11px] text-forest-300 truncate">{user.district || 'Mathura'}, {user.state || 'UP'}</p>
+            </div>
+          )}
+
           <button
             onClick={toggleLanguage}
             className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-forest-800 text-xs font-bold text-earth-100 hover:bg-forest-700 transition-colors"
@@ -99,13 +112,13 @@ export default function FarmerLayout({
             <span className="text-harvest-300">{t('common.switchLang')}</span>
           </button>
 
-          <Link
-            href="/"
-            className="flex items-center gap-3 px-4 py-2 text-xs font-medium text-forest-300 hover:text-earth-100 transition-colors"
+          <button
+            onClick={() => logout()}
+            className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl border border-forest-700 text-xs font-semibold text-forest-200 hover:bg-forest-800 hover:text-earth-100 transition-colors"
           >
-            <LogOut className="w-4 h-4" />
-            <span>Return to Landing</span>
-          </Link>
+            <LogOut className="w-4 h-4 text-harvest-400" />
+            <span>{t('common.logout')}</span>
+          </button>
         </div>
       </aside>
 

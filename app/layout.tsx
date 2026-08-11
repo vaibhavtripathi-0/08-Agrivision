@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { LanguageProvider } from '@/lib/i18n/context';
+import { AuthProvider } from '@/lib/auth/context';
 
 export const metadata: Metadata = {
   title: 'AgriVision | AI-Powered Intelligence for Smarter Farming',
@@ -15,9 +16,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className="antialiased selection:bg-forest-200 selection:text-forest-900">
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
+        <AuthProvider>
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
+        </AuthProvider>
       </body>
     </html>
   );

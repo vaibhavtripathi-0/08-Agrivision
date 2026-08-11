@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import { useAuth } from '@/lib/auth/context';
 import { Sprout, User, Mail, Phone, Lock, MapPin, Globe, ArrowRight } from 'lucide-react';
 
 export default function RegisterPage() {
@@ -23,9 +24,21 @@ export default function RegisterPage() {
 
   const [loading, setLoading] = useState(false);
 
+  const { setUser } = useAuth();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+    const newProfile = {
+      fullName: formData.fullName || 'Farmer User',
+      email: formData.email,
+      phone: formData.phone,
+      role: formData.role,
+      state: formData.state,
+      district: formData.district,
+      villageCity: formData.villageCity,
+    };
 
     try {
       const supabase = createClient();
@@ -45,8 +58,10 @@ export default function RegisterPage() {
         },
       });
 
+      setUser(newProfile);
       router.push('/farmer/dashboard');
     } catch (err) {
+      setUser(newProfile);
       router.push('/farmer/dashboard');
     } finally {
       setLoading(false);

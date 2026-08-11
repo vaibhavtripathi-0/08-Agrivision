@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from '@/lib/i18n/context';
+import { useAuth } from '@/lib/auth/context';
 import { AIService, ChatMessage } from '@/lib/services/ai';
 import {
   Sparkles,
@@ -18,14 +19,17 @@ import {
 
 export default function KrishiMitraAssistantPage() {
   const { t } = useTranslation();
+  const { user } = useAuth();
+  const userName = user?.fullName || 'Farmer';
+  const userDistrict = user?.district || 'Mathura';
 
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'init-1',
       sender: 'krishimitra',
-      text: `Namaste Vaibhav! 🙏 Main **KrishiMitra AI**, aapka intelligent farming companion.
+      text: `Namaste ${userName}! 🙏 Main **KrishiMitra AI**, aapka intelligent farming companion.
 
-Aapke Mathura field (#1 Wheat, 2 Acres, Loamy Soil) ke context ke saath main ready hoon. Aap crop disease, soil, weather ya mandi prices ke bare me mujhse Hindi, Hinglish ya English me pooch sakte hain!`,
+Aapke ${userDistrict} field (#1 Wheat, 2 Acres, Loamy Soil) ke context ke saath main ready hoon. Aap crop disease, soil, weather ya mandi prices ke bare me mujhse Hindi, Hinglish ya English me pooch sakte hain!`,
       timestamp: '10:00 AM',
       suggestedActions: [
         'Bhai meri गेहूं ki leaves yellow ho rahi hain.',

@@ -10,7 +10,7 @@ type Dictionaries = typeof en;
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (keyPath: string) => string;
+  t: (keyPath: string, params?: Record<string, string>) => string;
   dictionary: Dictionaries;
 }
 
@@ -33,7 +33,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('agrivision_lang', lang);
   };
 
-  const t = (keyPath: string): string => {
+  const t = (keyPath: string, params?: Record<string, string>): string => {
     const keys = keyPath.split('.');
     let current: any = dictionaries[language];
     for (const key of keys) {
@@ -49,10 +49,17 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
             return keyPath;
           }
         }
-        return fallback;
+        current = fallback;
+        break;
       }
     }
-    return typeof current === 'string' ? current : keyPath;
+    let res = typeof current === 'string' ? current : keyPath;
+    if (params) {
+      Object.entries(params).forEach(([pk, pv]) => {
+        res = res.replace(new RegExp(`\\{${pk}\\}`, 'g'), pv);
+      });
+    }
+    return res;
   };
 
   return (

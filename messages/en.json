@@ -33,7 +33,7 @@
     "trustImpact": "Built for Rural Accessibility & Impact"
   },
   "dashboard": {
-    "greeting": "Namaste, Vaibhav 👋",
+    "greeting": "Namaste, {name} 👋",
     "subGreeting": "Good morning. Here's what your wheat field in Mathura needs today.",
     "cropHealth": "Crop Health",
     "soilHealth": "Soil Health",
