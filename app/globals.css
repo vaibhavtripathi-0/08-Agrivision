@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: 'Inter', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
+}
+
+body {
+  font-family: var(--font-inter);
+  background-color: #FAF8F5;
+  color: #13281C;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-outfit);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F5F0E6;
+}
+::-webkit-scrollbar-thumb {
+  background: #C3D9CB;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9CBDA7;
+}
+
+/* Glassmorphism effects */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(234, 223, 201, 0.6);
+}
+
+.glass-card-dark {
+  background: rgba(21, 30, 26, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(42, 75, 55, 0.4);
+}
+
+/* Pulsing AI badge */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(52, 93, 68, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(52, 93, 68, 0.8);
+  }
+}
+
+.ai-badge-glow {
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}

@@ -1,0 +1,55 @@
+{
+  "common": {
+    "appName": "AgriVision",
+    "tagline": "AI-powered intelligence for smarter farming",
+    "krishiMitraTitle": "KrishiMitra AI",
+    "krishiMitraTagline": "Your intelligent farming companion",
+    "switchLang": "हिन्दी",
+    "login": "Sign In",
+    "register": "Register Farmer",
+    "dashboard": "Dashboard",
+    "farms": "My Farms",
+    "disease": "Disease Scan",
+    "weather": "Weather Advice",
+    "market": "Mandi Prices",
+    "services": "Agri Services",
+    "logout": "Sign Out",
+    "demoMode": "DEMO MODE",
+    "liveData": "LIVE DATA",
+    "aiAnalysis": "AI INSIGHT"
+  },
+  "landing": {
+    "heroTitle": "Farming decisions, made smarter.",
+    "heroSub": "AI-powered crop, soil, weather and market intelligence designed for Indian farmers.",
+    "ctaStart": "Start Farming Smarter",
+    "ctaExplore": "Explore AgriVision",
+    "problemTitle": "Agricultural Data is Fragmented",
+    "problemDesc": "Farmers struggle with scattered data across weather apps, local mandi physical visits, unverified pest advice, and uncertain crop choices.",
+    "solutionTitle": "AgriVision Connects Every Farm Detail",
+    "solutionDesc": "We combine field location, soil pH, satellite weather, disease image recognition, and live market trends into simple actionable advice.",
+    "farmBriefTitle": "Today's Farm Brief",
+    "howItWorks": "How AgriVision Works",
+    "expertEcosystem": "Verified Agricultural Experts",
+    "trustImpact": "Built for Rural Accessibility & Impact"
+  },
+  "dashboard": {
+    "greeting": "Namaste, Vaibhav 👋",
+    "subGreeting": "Good morning. Here's what your wheat field in Mathura needs today.",
+    "cropHealth": "Crop Health",
+    "soilHealth": "Soil Health",
+    "waterStatus": "Water Status",
+    "riskLevel": "Risk Level",
+    "todaysBrief": "TODAY'S FARM BRIEF",
+    "rainAlert": "Rain expected tomorrow (78% probability)",
+    "irrigationAdvice": "Skip irrigation today to save water & avoid root rot.",
+    "pestRisk": "Moderate risk for leaf rust due to humidity.",
+    "mandiAlert": "Agra Mandi price surged +4.2% (₹2,520/qtl)."
+  },
+  "assistant": {
+    "placeholder": "Ask KrishiMitra about crop diseases, fertilizers, or mandi prices...",
+    "speakBtn": "🎤 Speak",
+    "suggested1": "Bhai meri गेहूं ki leaves yellow ho rahi hain.",
+    "suggested2": "What is the best sowing window for Mustard in Mathura?",
+    "suggested3": "Is irrigation recommended today for field #1?"
+  }
+}
